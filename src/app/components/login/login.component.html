@@ -1,0 +1,51 @@
+<div class="container-fluid py-3">
+    <h1>Login</h1>
+  
+    <div class="row justify-content-center my-5">
+      <div class="col-4">
+        <form #form="ngForm">
+          <div class="row">
+            <div class="col mb-2">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" placeholder="Your name" required minlength="1" maxlength="250" class="form-control form-control-sm" [class.is-invalid]="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+                <div *ngIf="name.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="name.errors?.['minlength']">
+                  This field must have at least 1 character.
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="password" class="form-label">Password:</label>
+              <div class="input-group input-group-sm has-validation">
+                <input [type]="user.showPassword ? 'text' : 'password'" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" required minlength="8" class="form-control form-control-sm" [class.is-invalid]="password.invalid && (password.dirty || password.touched)">
+                <button type="button" class="btn btn-np btn-outline-secondary" (click)="user.showPassword = !user.showPassword">
+                  <i class="bi" [ngClass]="{'bi-eye-fill': !user.showPassword, 'bi-eye-slash-fill': user.showPassword}"></i>
+                </button>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+                  <div *ngIf="password.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="password.errors?.['minlength']">
+                    This field must have at least 8 characters.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2 d-grid">
+              <button type="button" class="btn btn-sm btn-primary" (click)="validate(form)">Validate</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
